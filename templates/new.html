@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block title %}Uusi resepti{% endblock %}
+{% block content %}
+<h3>Lisää uusi resepti</h3>
+<form action="/add" method="POST">
+    <p>Nimi: </p>
+    <input type="text" name="name">
+    <br>
+    <p>Ainesosat: </p>
+    <input type="text" placeholder="määrä" name="quantity">
+    <input type="text" placeholder="ainesosa" name="ingredient">
+    <br>
+    <input type="text" placeholder="määrä" name="quantity">
+    <input type="text" placeholder="ainesosa" name="ingredient">
+    <br>
+    <input type="text" placeholder="määrä" name="quantity">
+    <input type="text" placeholder="ainesosa" name="ingredient">
+    <br>
+    <p>Vaiheet: </p>
+    <input type="text" placeholder="vaihe" name="step">
+    <br>
+    <input type="text" placeholder="vaihe" name="step">
+    <br>
+    <input type="text" placeholder="vaihe" name="step">
+    <br><br>
+    <input type="submit" value="Lisää">
+</form>
+{% endblock %}

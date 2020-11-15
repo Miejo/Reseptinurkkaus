@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block title %}{{ name }}{% endblock %}
+{% block content %}
+<h3> {{ name }} </h3>
+Ainekset:
+<ul>
+{% for ingredient in ingredients %}
+<li> {{ ingredient[0] }} : {{ ingredient[1] }} </li>
+{% endfor %}
+</ul>
+<br>
+Vaiheet:
+<ol>
+{% for step in steps %}
+<li> {{ step[1] }} </li>
+{% endfor %}
+</ol>
+{% endblock %}
