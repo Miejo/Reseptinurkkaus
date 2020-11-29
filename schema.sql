@@ -22,15 +22,15 @@ CREATE TABLE Steps (
     instructions TEXT
 );
 
+CREATE TABLE Users (
+    id SERIAL PRIMARY KEY,
+    username TEXT,
+    password TEXT
+);
+
 CREATE TABLE Ratings (
     id SERIAL PRIMARY KEY,
     recipe_id INTEGER REFERENCES Recipes(id),
     user_id INTEGER REFERENCES Users(id),
     rating INTEGER
-);
-
-CREATE TABLE Users (
-    id SERIAL PRIMARY KEY,
-    username TEXT,
-    password TEXT
 );
