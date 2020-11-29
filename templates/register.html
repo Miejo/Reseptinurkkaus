@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block title %}Kirjaudu sisään{% endblock %}
+{% block content %}
+{% if session.username %}
+<p>Olet kirjautunut nimellä {{ session.username }}</p>
+{% else %}
+<form action="/register" method="POST">
+<p>Käyttäjätunnus:<br>
+    <input type="text" name="username" required></p>
+<p>Salasana: <br>
+    <input type="password" name="password" required></p>
+<input type="submit" value="Kirjaudu">
+</form>
+{% if error %}
+    <p>Virhe: {{ error }}</p>
+{% endif %}
+{% endif %}
+{% endblock %}

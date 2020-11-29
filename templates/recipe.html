@@ -2,17 +2,36 @@
 {% block title %}{{ name }}{% endblock %}
 {% block content %}
 <h3> {{ name }} </h3>
-Ainekset:
+<p>
+{% if rating < 0 %}
+Ei arvosteluja
+{% else %}
+{{ rating }}/5 tähteä
+{% endif %}
+</p>
+<p>Ainekset:</p>
 <ul>
 {% for ingredient in ingredients %}
 <li> {{ ingredient[0] }} : {{ ingredient[1] }} </li>
 {% endfor %}
 </ul>
 <br>
-Vaiheet:
+<p>Vaiheet:</p>
 <ol>
 {% for step in steps %}
 <li> {{ step[1] }} </li>
 {% endfor %}
 </ol>
+<br>
+{% if not rating_status%}
+<form action="/recipelist/{{ id }}" method="POST">
+    {% for x in range(0,6) %}
+    <label for="{{ x }}" style="float:left; text-align: center;">{{ x }}<br />
+        <input type="radio" id="{{ x }}" name="rate" value="{{ x }}">
+    </label>
+    {% endfor %}
+    <input type="submit" value="Arvostele">
+</form>
+{% endif %}
+<br>
 {% endblock %}

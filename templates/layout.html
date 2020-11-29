@@ -3,9 +3,20 @@
 <h1>Reseptinurkkaus</h1>
 <a href="/">Etusivu</a>
 |
-<a href="/recipes">Selaa reseptejä</a>
+<a href="/recipelist">Selaa reseptejä</a>
+{% if session.username %}
 |
 <a href="/new">Uusi resepti</a>
+<br>
+Olet kirjautunut käyttäjänä <i>{{ session.username }}</i>
+|
+<a href="/logout">Kirjaudu ulos</a>
+{% else %}
+<br>
+<a href="/login">Kirjaudu sisään</a>
+tai
+<a href="/register">Rekisteröidy</a>
+{% endif %}
 <hr>
 {% block content %}{% endblock %}
 <hr>

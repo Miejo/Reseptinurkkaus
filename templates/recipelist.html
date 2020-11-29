@@ -3,8 +3,8 @@
 {% block content %}
 <h3>Lista resepteistä:</h3>
 <ul>
-{% for recipe in recipes %}
-<li><a href="recipes/{{ recipe[0] }} "> {{ recipe[1] }} </a></li>
+{% for recipe in recipelist %}
+<li><a href="recipelist/{{ recipe[0] }} "> {{ recipe[1] }} </a></li>
 {% endfor %}
 </ul>
 {% endblock %}

@@ -1,28 +1,41 @@
 {% extends "layout.html" %}
 {% block title %}Uusi resepti{% endblock %}
 {% block content %}
+{% if session.username %}
 <h3>Lisää uusi resepti</h3>
-<form action="/add" method="POST">
+<form id="add_rows" action="/new" method="POST">
+    <input type="hidden" name="ingredient_rows" value="{{ ingredients }}">
+    <input type="hidden" name="step_rows" value="{{ steps }}">
+</form>
+<form id="add_recipe" action="/add" method="POST">
     <p>Nimi: </p>
-    <input type="text" name="name">
+    <input type="text" placeholder="nimi" name="name" required>
     <br>
     <p>Ainesosat: </p>
-    <input type="text" placeholder="määrä" name="quantity">
-    <input type="text" placeholder="ainesosa" name="ingredient">
+    {% for x in range(ingredients) %}
     <br>
-    <input type="text" placeholder="määrä" name="quantity">
-    <input type="text" placeholder="ainesosa" name="ingredient">
+    <input type="text" placeholder="määrä" name="quantity" required>
+    <input type="text" placeholder="ainesosa" name="ingredient" required>
     <br>
-    <input type="text" placeholder="määrä" name="quantity">
-    <input type="text" placeholder="ainesosa" name="ingredient">
+    {% endfor %}
+    <br>
+    <input type="submit" name="add_ingredient" value="Lisää rivi" form="add_rows"/>
+    <input type="submit" name="remove_ingredient" value="Poista rivi" form="add_rows"/>
     <br>
     <p>Vaiheet: </p>
-    <input type="text" placeholder="vaihe" name="step">
+    {% for x in range(steps) %}
     <br>
-    <input type="text" placeholder="vaihe" name="step">
+    <input type="text" placeholder="vaihe" name="step" required>
     <br>
-    <input type="text" placeholder="vaihe" name="step">
-    <br><br>
-    <input type="submit" value="Lisää">
+    {% endfor %}
+    <br>
+    <input type="submit" name="add_step" value="Lisää rivi" form="add_rows"/>
+    <input type="submit" name="remove_step" value="Poista rivi" form="add_rows"/>
+    <br>
+    <br>
+    <input type="submit" value="Lisää resepti">
 </form>
+{% else %}
+<p>Et ole kirjautunut sisään</p>
+{% endif %}
 {% endblock %}
