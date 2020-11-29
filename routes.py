@@ -12,6 +12,12 @@ def recipelist():
     recipelist = recipes.get_list()
     return render_template("recipelist.html", recipelist=recipelist)
 
+@app.route("/search")
+def search():
+    query = request.args["query"]
+    recipelist = recipes.query_recipes(query)
+    return render_template("recipelist.html", recipelist=recipelist)
+
 @app.route("/recipelist/<int:id>", methods=["GET", "POST"])
 def recipe(id):
     if request.method == "POST":

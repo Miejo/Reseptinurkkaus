@@ -47,3 +47,9 @@ def add_recipe(name, ingredients, quantities, steps):
         db.session.execute(sql, {"recipe_id":recipe_id, "step":order_number, "instruction":step})
     db.session.commit()
     return True
+
+def query_recipes(query):
+    sql = "SELECT r.id, r.name FROM recipeingredients t INNER JOIN ingredients i ON i.id = t.ingredient_id INNER JOIN recipes r ON r.id = t.recipe_id WHERE i.name ILIKE :query"
+    result = db.session.execute(sql, {"query":"%"+query+"%"})
+    recipes = result.fetchall()
+    return recipes
