@@ -7,33 +7,49 @@
     <input type="hidden" name="ingredient_rows" value="{{ ingredients }}">
     <input type="hidden" name="step_rows" value="{{ steps }}">
 </form>
-<form id="add_recipe" action="/add" method="POST">
-    <p>Nimi: </p>
-    <input type="text" placeholder="nimi" name="name" required>
-    <br>
-    <p>Ainesosat: </p>
-    {% for x in range(ingredients) %}
-    <br>
-    <input type="text" placeholder="määrä" name="quantity" required>
-    <input type="text" placeholder="ainesosa" name="ingredient" required>
-    <br>
-    {% endfor %}
-    <br>
-    <input type="submit" name="add_ingredient" value="Lisää rivi" form="add_rows"/>
-    <input type="submit" name="remove_ingredient" value="Poista rivi" form="add_rows"/>
-    <br>
-    <p>Vaiheet: </p>
-    {% for x in range(steps) %}
-    <br>
-    <input type="text" placeholder="vaihe" name="step" required>
-    <br>
-    {% endfor %}
-    <br>
-    <input type="submit" name="add_step" value="Lisää rivi" form="add_rows"/>
-    <input type="submit" name="remove_step" value="Poista rivi" form="add_rows"/>
-    <br>
-    <br>
-    <input type="submit" value="Lisää resepti">
+<form id="add_recipe" action="/add" method="POST" enctype="multipart/form-data">
+    <div class="form-group">
+        <label class="h5" for="name">Reseptin nimi:</label>
+        <input type="text" class="form-control" placeholder="Nimi" name="name" required>
+    </div>
+    <div class="form-group">
+        <label class="h5" for="ingredient">Ainesosat:</label>
+        {% for x in range(ingredients) %}
+        <div class="row mb-2">
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Määrä" name="quantity" required>
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Ainesosa" name="ingredient" required>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="form-group">
+        <input type="submit" name="add_ingredient" value="+" form="add_rows"/>
+        <input type="submit" name="remove_ingredient" value="-" form="add_rows"/>
+    </div>
+    <div class="form-group">
+        <label class="h5" for="step">Vaiheet:</label>
+        {% for x in range(steps) %}
+        <div class="row mb-2">
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Vaihe" name="step" required>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="form-group">
+        <input type="submit" name="add_step" value="+" form="add_rows"/>
+        <input type="submit" name="remove_step" value="-" form="add_rows"/>
+    </div>
+    <div class="form-group">
+        <label class="h5" for="image">Kuva:</label>
+        <input type="file" accept="image/*" name="image">
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Lisää resepti">
+    </div>
 </form>
 {% else %}
 <p>Et ole kirjautunut sisään</p>

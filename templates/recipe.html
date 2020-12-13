@@ -1,37 +1,47 @@
 {% extends "layout.html" %}
 {% block title %}{{ name }}{% endblock %}
 {% block content %}
-<h3> {{ name }} </h3>
-<p>
-{% if rating < 0 %}
-Ei arvosteluja
-{% else %}
-{{ rating }}/5 tähteä
-{% endif %}
-</p>
-<p>Ainekset:</p>
-<ul>
-{% for ingredient in ingredients %}
-<li> {{ ingredient[0] }} : {{ ingredient[1] }} </li>
-{% endfor %}
-</ul>
-<br>
-<p>Vaiheet:</p>
-<ol>
-{% for step in steps %}
-<li> {{ step[1] }} </li>
-{% endfor %}
-</ol>
-<br>
-{% if not rating_status%}
-<form action="/recipelist/{{ id }}" method="POST">
-    {% for x in range(0,6) %}
-    <label for="{{ x }}" style="float:left; text-align: center;">{{ x }}<br />
-        <input type="radio" id="{{ x }}" name="rate" value="{{ x }}">
-    </label>
-    {% endfor %}
-    <input type="submit" value="Arvostele">
-</form>
-{% endif %}
-<br>
+<div class="row">
+    <div class="col-sm-6">
+        <h3> {{ name }} </h3>
+        <p>
+        {% if rating < 0 %}
+        Ei arvosteluja
+        {% else %}
+        {{ rating }}/5 tähteä
+        {% endif %}
+        </p>
+        <dl class="row">
+        {% for ingredient in ingredients %}
+        <dt class="col-sm-2 text-center">{{ ingredient[1] }}</dt>
+        <dd class="col-sm-10">{{ ingredient[0] }}</dd>
+        {% endfor %}
+        </dl>
+        <br>
+        <dl class="row">
+        {% for step in steps %}
+        <dt class="col-sm-2 text-center">{{ loop.index }}.</dt>
+        <dd class="col-sm-10"> {{ step[1] }} </dd>
+        {% endfor %}
+        </dl>
+        <br>
+        {% if not rating_status%}
+        <form action="/recipelist/{{ id }}" method="POST">
+            {% for x in range(0,6) %}
+            <div class="form-check-inline">
+                <label class="form-check-label" for="{{ x }}">{{ x }}<br />
+                    <input type="radio" id="{{ x }}" name="rate" value="{{ x }}" required>
+                </label>
+            </div>
+            {% endfor %}
+            <div class="form-group">
+                <input type="submit" value="Arvostele">
+            </div>
+        </form>
+    {% endif %}
+    </div>
+    <div class="col-sm-6">
+        <img src="data:;base64,{{ image }}" alt="">
+    </div>
+</div>
 {% endblock %}

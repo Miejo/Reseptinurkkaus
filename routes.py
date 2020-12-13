@@ -23,10 +23,10 @@ def recipe(id):
     if request.method == "POST":
         rate = request.form["rate"]
         ratings.rate(id, rate)
-    name, ingredients, steps = recipes.get_recipe(id)
+    name, ingredients, steps, image = recipes.get_recipe(id)
     rating = ratings.get_rating(id)
     rating_status = ratings.get_rating_status(id)
-    return render_template("recipe.html", id=id, name=name, rating=rating, ingredients=ingredients, steps=steps, rating_status=rating_status)
+    return render_template("recipe.html", id=id, name=name, rating=rating, ingredients=ingredients, steps=steps, image=image, rating_status=rating_status)
 
 @app.route("/new", methods=["GET", "POST"])
 def new():
@@ -53,7 +53,12 @@ def add():
     ingredients = request.form.getlist("ingredient")
     quantities = request.form.getlist("quantity")
     steps = request.form.getlist("step")
-    if recipes.add_recipe(name, ingredients, quantities, steps):
+    if request.files["image"].filename is not '':
+        image = request.files["image"]
+        print("name",image.filename)
+    else:
+        image = None
+    if recipes.add_recipe(name, ingredients, quantities, steps, image):
         return redirect("/")
     else:
         pass

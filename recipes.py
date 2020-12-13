@@ -1,4 +1,6 @@
 from db import db
+from flask import make_response
+import base64
 import users
 
 def get_count():
@@ -23,9 +25,16 @@ def get_recipe(id):
     sql = "SELECT step, instructions FROM Steps WHERE recipe_id=:id"
     result = db.session.execute(sql, {"id":id})
     steps = result.fetchall()
-    return name, ingredients, steps
+    sql = "SELECT image FROM Images WHERE recipe_id=:id"
+    result = db.session.execute(sql, {"id":id})
+    data = result.fetchall()
+    if len(data):
+        image = base64.b64encode(data[0][0]).decode('utf-8')
+    else:
+        image = None
+    return name, ingredients, steps, image
 
-def add_recipe(name, ingredients, quantities, steps):
+def add_recipe(name, ingredients, quantities, steps, image):
     username = users.get_user()
     if username is None:
         return False
@@ -45,6 +54,10 @@ def add_recipe(name, ingredients, quantities, steps):
         sql = "INSERT INTO Steps (recipe_id, step, instructions) VALUES (:recipe_id, :step, :instruction)"
         order_number = index + 1
         db.session.execute(sql, {"recipe_id":recipe_id, "step":order_number, "instruction":step})
+    if image is not None:
+        image_data = image.read()
+        sql = "INSERT INTO Images (recipe_id, image) VALUES (:recipe_id, :image)"
+        db.session.execute(sql, {"recipe_id":recipe_id, "image":image_data})
     db.session.commit()
     return True
 

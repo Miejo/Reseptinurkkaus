@@ -1,0 +1,13 @@
+.navbar { 
+    margin-bottom: 20px;
+}
+
+.form-check-label {
+    float: left;
+    text-align: center;
+}
+
+img {
+    width:100%;
+    height:auto;
+}

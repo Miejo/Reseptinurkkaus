@@ -4,6 +4,7 @@
 {% if session.username %}
 <p>Olet kirjautunut nimellä {{ session.username }}</p>
 {% else %}
+<h3>Rekisteröidy</h3>
 <form action="/register" method="POST">
 <p>Käyttäjätunnus:<br>
     <input type="text" name="username" required></p>

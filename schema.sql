@@ -34,3 +34,9 @@ CREATE TABLE Ratings (
     user_id INTEGER REFERENCES Users(id),
     rating INTEGER
 );
+
+CREATE TABLE Images (
+    id SERIAL PRIMARY KEY,
+    recipe_id INTEGER REFERENCES Recipes(id),
+    image BYTEA
+);
